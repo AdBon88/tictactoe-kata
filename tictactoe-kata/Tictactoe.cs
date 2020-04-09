@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Linq;
 namespace tictactoe_kata
 {
@@ -31,8 +32,21 @@ namespace tictactoe_kata
         {
             if(userInput == "q")
                 return InputAction.QUIT_GAME;
-            else
+            else if(Regex.IsMatch(userInput, @"^[1-3],[1-3]$"))
                 return InputAction.VALID_MOVE;
+            else
+                return InputAction.INVALID_MOVE;
         }
+
+        public string OutputMoveAcceptedMessage()
+        {
+            return "\nMove accepted, here's the current board:";
+        }
+
+        public string OutputInvalidMoveMessage()
+        {
+            return "\nInvalid move!";
+        }
+
     }
 }

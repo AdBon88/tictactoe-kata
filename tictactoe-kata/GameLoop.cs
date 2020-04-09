@@ -16,9 +16,11 @@ namespace tictactoe_kata
                 Console.WriteLine(tictactoe.PromptUserForInput());
                 userInput = Console.ReadLine().ToLower();
                 nextAction = tictactoe.ProcessUserInput(userInput);
-                if (nextAction != InputAction.QUIT_GAME)
-                    Console.WriteLine(tictactoe.OutputCurrentBoard());
-
+                if (nextAction == InputAction.VALID_MOVE)
+                    Console.WriteLine(tictactoe.OutputMoveAcceptedMessage());
+                else if(nextAction == InputAction.INVALID_MOVE)
+                    Console.WriteLine(tictactoe.OutputInvalidMoveMessage());
+                    
             } while( nextAction != InputAction.QUIT_GAME );
 
             return true;
