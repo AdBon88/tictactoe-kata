@@ -1,0 +1,10 @@
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/bin/Debug/netcoreapp3.1/tictactoe-kata.deps.json
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/bin/Debug/netcoreapp3.1/tictactoe-kata.runtimeconfig.json
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/bin/Debug/netcoreapp3.1/tictactoe-kata.runtimeconfig.dev.json
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/bin/Debug/netcoreapp3.1/tictactoe-kata.dll
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/bin/Debug/netcoreapp3.1/tictactoe-kata.pdb
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.csprojAssemblyReference.cache
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.AssemblyInfoInputs.cache
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.AssemblyInfo.cs
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.dll
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.pdb
