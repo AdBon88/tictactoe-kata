@@ -4,12 +4,13 @@ namespace tictactoe_kata
 {
     public class Tictactoe
     {
-        public string OutputWelcomeMessage()
+        public Board Board {get;} = new Board();
+        public string WelcomeMessageOutput()
         {
             return "\nWelcome to Tic Tac Toe!";
         }
 
-        public string OutputCurrentBoard()
+        public string CurrentBoardOutput()
         {
             string[] boardLines = 
             {
@@ -31,19 +32,27 @@ namespace tictactoe_kata
         public InputAction ProcessUserInput(string userInput)
         {
             if(userInput == "q")
-                return InputAction.QUIT_GAME;
+                return InputAction.QuitGame;
             else if(Regex.IsMatch(userInput, @"^[1-3],[1-3]$"))
-                return InputAction.VALID_MOVE;
+                return InputAction.ValidMove;
             else
-                return InputAction.INVALID_MOVE;
+                return InputAction.InvalidMove;
         }
 
-        public string OutputMoveAcceptedMessage()
+        public string OutputOf(InputAction nextAction)
+        {
+            if (nextAction == InputAction.ValidMove)
+                return MoveAcceptedOutput() + CurrentBoardOutput();
+            else
+                return InvalidMoveOutput();
+        }
+
+        private string MoveAcceptedOutput()
         {
             return "\nMove accepted, here's the current board:";
         }
 
-        public string OutputInvalidMoveMessage()
+        private string InvalidMoveOutput()
         {
             return "\nInvalid move!";
         }

@@ -8,3 +8,5 @@
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.AssemblyInfo.cs
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.dll
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.pdb
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.csproj.CoreCompileInputs.cache
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata/obj/Debug/netcoreapp3.1/tictactoe-kata.genruntimeconfig.cache

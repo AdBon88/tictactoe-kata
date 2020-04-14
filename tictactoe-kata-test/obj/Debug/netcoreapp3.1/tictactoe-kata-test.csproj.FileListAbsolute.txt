@@ -94,3 +94,5 @@
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata-test/obj/Debug/netcoreapp3.1/tictactoe-kata-test.csproj.CopyComplete
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata-test/obj/Debug/netcoreapp3.1/tictactoe-kata-test.dll
 /Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata-test/obj/Debug/netcoreapp3.1/tictactoe-kata-test.pdb
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata-test/obj/Debug/netcoreapp3.1/tictactoe-kata-test.csproj.CoreCompileInputs.cache
+/Users/adam.bonarrigo/Projects/tictactoe-kata/tictactoe-kata-test/obj/Debug/netcoreapp3.1/tictactoe-kata-test.genruntimeconfig.cache
