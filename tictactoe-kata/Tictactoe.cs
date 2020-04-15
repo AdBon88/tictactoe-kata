@@ -5,6 +5,10 @@ namespace tictactoe_kata
     public class Tictactoe
     {
         public Board Board {get;} = new Board();
+        public Player Player1 {get;} = new Player("Player 1", PlayerMarker.X, true);
+        public Player Player2 {get;} = new Player("Player 2", PlayerMarker.O, false);
+
+
         public string WelcomeMessageOutput()
         {
             return "\nWelcome to Tic Tac Toe!\n\nHere's the current board:";
@@ -15,10 +19,29 @@ namespace tictactoe_kata
             return Board.ToString();
         }
 
+        // public void SwitchActivePlayer()
+        // {
+        //     if(!Player1.IsActive && !Player2.IsActive)
+        //         Player1.IsActive = true;
+        //     else 
+        // }
 
+        //TODO ASK ABOUT THIS
         public string PromptUserForInput()
         {
-            return "\nPlayer 1 enter a coord x,y to place your X or enter 'q' to give up:";
+            string playerName = "";
+            char playerMarker = ' ';
+
+            if (Player1.IsActive)
+            {
+                playerName = Player1.Name;
+                playerMarker = (char)Player1.Marker;
+            } else if (Player2.IsActive)
+            {
+                playerName = Player2.Name;
+                playerMarker = (char)Player2.Marker;
+            }
+            return $"\n{playerName} enter a coord x,y to place your {playerMarker} or enter 'q' to give up:";
         }
 
         public InputAction ProcessUserInput(string userInput)

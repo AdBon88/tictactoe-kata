@@ -30,9 +30,22 @@ namespace tictactoe_kata_test
 
             Assert.Equal(expected, actual);
         }
-        
+
+        // [Fact]
+        // public void Tictactoe_SetActivePlayer_setsPlayer1AsActiveForNewGame()
+        // {
+        //     Tictactoe tictactoe = new Tictactoe();
+        //     Tictactoe.SetActivePlayer();
+
+
+        //     const string expected = "\nPlayer 1 enter a coord x,y to place your X or enter 'q' to give up:";
+        //     string actual = tictactoe.PromptUserForInput();
+
+        //     Assert.Equal(expected, actual);
+        // }
+
         [Fact]
-        public void Tictactoe_PromptUserForInput_DisplaysInstructions()
+        public void Tictactoe_PromptUserForInput_DisplaysInstructionsForPlayer1IfFirstTurn()
         {
             Tictactoe tictactoe = new Tictactoe();
 
@@ -42,16 +55,6 @@ namespace tictactoe_kata_test
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void Tictactoe_GetUserInput_qEndsProgram()
-        {
-            Tictactoe tictactoe = new Tictactoe();
-
-            const string expected = "\nPlayer 1 enter a coord x,y to place your X or enter 'q' to give up:";
-            string actual = tictactoe.PromptUserForInput();
-
-            Assert.Equal(expected, actual);
-        }
 
         [Theory]
         [InlineData("1,1", InputAction.ValidMove)]

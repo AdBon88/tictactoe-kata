@@ -33,7 +33,7 @@ namespace tictactoe_kata
                     cols[currentCol] = SpaceContents[currentRow,currentCol].ToString();
                 }
             
-            rows[currentRow] = string.Join(" ", cols);
+                rows[currentRow] = string.Join(" ", cols);
             }
             currentBoard += string.Join("\n", rows);
             return currentBoard;
