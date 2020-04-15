@@ -7,22 +7,14 @@ namespace tictactoe_kata
         public Board Board {get;} = new Board();
         public string WelcomeMessageOutput()
         {
-            return "\nWelcome to Tic Tac Toe!";
+            return "\nWelcome to Tic Tac Toe!\n\nHere's the current board:";
         }
 
         public string CurrentBoardOutput()
         {
-            string[] boardLines = 
-            {
-                "",
-                "Here's the current board:",
-                "",
-                ". . .",
-                ". . .",
-                ". . ."
-            };         
-            return string.Join("\n", boardLines);
+            return Board.ToString();
         }
+
 
         public string PromptUserForInput()
         {
@@ -34,7 +26,10 @@ namespace tictactoe_kata
             if(userInput == "q")
                 return InputAction.QuitGame;
             else if(Regex.IsMatch(userInput, @"^[1-3],[1-3]$"))
+            {
+                Board.PlaceMarkerAt(userInput);
                 return InputAction.ValidMove;
+            }
             else
                 return InputAction.InvalidMove;
         }
@@ -49,7 +44,7 @@ namespace tictactoe_kata
 
         private string MoveAcceptedOutput()
         {
-            return "\nMove accepted, here's the current board:";
+            return "\nMove accepted, here's the current board:\n";
         }
 
         private string InvalidMoveOutput()
