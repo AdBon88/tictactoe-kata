@@ -13,13 +13,25 @@ namespace tictactoe_kata
                     SpaceContents[i,j] = '.';
         }
 
-        public void PlaceMarkerAt(string coords)
+        public void PlaceMarkerAt(string coordsInput, PlayerMarker activePlayerMarker)
         {
-            string[] coordsArray = coords.Split(',');
-            int row = Int32.Parse(coordsArray[0]) - 1;
-            int col = Int32.Parse(coordsArray[1]) - 1;
+            // string[] coordsArray = coordsInput.Split(',');
+            // int row = Int32.Parse(coordsArray[0]) - 1;
+            // int col = Int32.Parse(coordsArray[1]) - 1;
+            
+            SpaceContents[Coords.ParseRow(coordsInput), Coords.ParseCol(coordsInput)] = (char)activePlayerMarker; 
+        }
 
-            SpaceContents[row, col] = 'X'; 
+        public bool SpaceIsTakenAt(string coordsInput)
+        {
+            // string[] coordsArray = coordsInput.Split(',');
+            // int row = Int32.Parse(coordsArray[0]) - 1;
+            // int col = Int32.Parse(coordsArray[1]) - 1;   
+
+            if(SpaceContents[Coords.ParseRow(coordsInput),Coords.ParseCol(coordsInput)] != (char)PlayerMarker.None)      
+                return true;
+            else
+                return false; 
         }
 
         public override string ToString()

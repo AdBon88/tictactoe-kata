@@ -7,11 +7,11 @@ namespace tictactoe_kata
         public PlayerMarker Marker {get;}
         public bool IsActive {get; set;}
 
-        public Player(string name, PlayerMarker marker, bool isActive)
+        public Player(string name, PlayerMarker marker)
         {
             Name = name;
             Marker = marker;
-            IsActive = isActive;
+            IsActive = false;
         }
     }
 }

@@ -31,30 +31,63 @@ namespace tictactoe_kata_test
             Assert.Equal(expected, actual);
         }
 
-        // [Fact]
-        // public void Tictactoe_SetActivePlayer_setsPlayer1AsActiveForNewGame()
-        // {
-        //     Tictactoe tictactoe = new Tictactoe();
-        //     Tictactoe.SetActivePlayer();
-
-
-        //     const string expected = "\nPlayer 1 enter a coord x,y to place your X or enter 'q' to give up:";
-        //     string actual = tictactoe.PromptUserForInput();
-
-        //     Assert.Equal(expected, actual);
-        // }
-
         [Fact]
-        public void Tictactoe_PromptUserForInput_DisplaysInstructionsForPlayer1IfFirstTurn()
+        public void Tictactoe_startGame_SetsPlayer1ToActive_Player2IsInactive()
         {
             Tictactoe tictactoe = new Tictactoe();
+            tictactoe.StartGame();
+
+            Assert.True(tictactoe.Player1.IsActive && !tictactoe.Player2.IsActive);
+        }
+
+        [Fact]
+        public void Tictactoe_PromptUserForInput_DisplaysPromptForPlayer1Player1IsActive()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player1.IsActive = true;
+            tictactoe.Player2.IsActive = false;
 
             const string expected = "\nPlayer 1 enter a coord x,y to place your X or enter 'q' to give up:";
             string actual = tictactoe.PromptUserForInput();
 
             Assert.Equal(expected, actual);
         }
+        [Fact]
+        public void Tictactoe_PromptUserForInput_DisplaysPromptForPlayer2Player2IsActive()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player2.IsActive = true;
+            tictactoe.Player1.IsActive = false;
 
+            const string expected = "\nPlayer 2 enter a coord x,y to place your O or enter 'q' to give up:";
+            string actual = tictactoe.PromptUserForInput();
+
+            Assert.Equal(expected, actual);
+        }
+
+       [Fact]
+        public void Tictactoe_SwitchActivePlayer_IfPlayer1wasActive_SetsPlayer1ToInActiveAndPlayer2ToActive()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player1.IsActive = true;
+            tictactoe.Player2.IsActive = false;
+
+            tictactoe.SwitchActivePlayer();
+
+            Assert.True(!tictactoe.Player1.IsActive && tictactoe.Player2.IsActive);
+        }
+
+        [Fact]
+        public void Tictactoe_SwitchActivePlayer_IfPlayer2wasActive_SetsPlayer2ToInActiveAndPlayer1ToActive()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player1.IsActive = false;
+            tictactoe.Player2.IsActive = true;
+
+            tictactoe.SwitchActivePlayer();
+
+            Assert.True(tictactoe.Player1.IsActive && !tictactoe.Player2.IsActive);
+        }
 
         [Theory]
         [InlineData("1,1", InputAction.ValidMove)]
@@ -71,18 +104,61 @@ namespace tictactoe_kata_test
 
             Assert.Equal(expected, actual);
         }
+        [Fact]
+        public void Tictactoe_ProcessUserInput_UnacceptableMoveIfSpaceAlreadyTaken()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Board.PlaceMarkerAt("1,1", PlayerMarker.X);
+
+            const InputAction expected = InputAction.UnacceptableMove;
+            InputAction actual = tictactoe.ProcessUserInput("1,1");
+
+            Assert.Equal(expected, actual);
+        }
 
         [Theory]
         [InlineData("1,1", "\nMove accepted, here's the current board:\n\nX . .\n. . .\n. . .")]
         [InlineData("2,3", "\nMove accepted, here's the current board:\n\n. . .\n. . X\n. . .")]
         [InlineData("3,2", "\nMove accepted, here's the current board:\n\n. . .\n. . .\n. X .")]
 
-        public void Tictactoe_ProcessUserInput_ValidMove_PlacesMarkerOnBoardAtCorrectCoords(string userInput, string expected)
+
+        public void Tictactoe_ProcessUserInput_ValidMove_Player1IsActive_PlacesXMarkerOnBoardAtCorrectCoords(string userInput, string expected)
         {
             Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player1.IsActive = true;
+            tictactoe.Player2.IsActive = false;
             
             InputAction validMove = tictactoe.ProcessUserInput(userInput);
             string actual = tictactoe.OutputOf(validMove);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("2,3", "\nMove accepted, here's the current board:\n\n. . .\n. . O\n. . .")]
+        [InlineData("3,3", "\nMove accepted, here's the current board:\n\n. . .\n. . .\n. . O")]
+        [InlineData("2,2", "\nMove accepted, here's the current board:\n\n. . .\n. O .\n. . .")]
+        public void Tictactoe_ProcessUserInput_ValidMove_PlacesActivePlayerMarkerOnBoardAtCorrectCoords(string userInput, string expected)
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Player1.IsActive = false;
+            tictactoe.Player2.IsActive = true;
+            
+            InputAction validMove = tictactoe.ProcessUserInput(userInput);
+            string actual = tictactoe.OutputOf(validMove);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Tictactoe_ProcessUserInput_MoveOnTakenSpace_OutputsSpaceTaken()
+        {
+            Tictactoe tictactoe = new Tictactoe();
+            tictactoe.Board.PlaceMarkerAt("1,1", PlayerMarker.X);
+
+            InputAction unacceptableMove = tictactoe.ProcessUserInput("1,1");
+            const string expected = "\nOh no, a piece is already at this place! Try again...";
+            string actual = tictactoe.OutputOf(unacceptableMove);
 
             Assert.Equal(expected, actual);
         }
@@ -91,8 +167,9 @@ namespace tictactoe_kata_test
         [Theory]
         [InlineData(InputAction.ValidMove, "\nMove accepted, here's the current board:\n\n. . .\n. . .\n. . .")]
         [InlineData(InputAction.InvalidMove, "\nInvalid move!")]
+        [InlineData(InputAction.UnacceptableMove, "\nOh no, a piece is already at this place! Try again...")]
 
-        public void Tictactoe_OutputOf_nextAction_isCorrect(InputAction nextAction, string expected)
+        public void Tictactoe_OutputOf_OutPutIsCorrectForEachAction(InputAction nextAction, string expected)
         {
             Tictactoe tictactoe = new Tictactoe();
             

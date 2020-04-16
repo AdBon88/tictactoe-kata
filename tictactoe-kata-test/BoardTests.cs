@@ -27,7 +27,7 @@ namespace tictactoe_kata_test
         {
             Board board = new Board();
 
-            board.PlaceMarkerAt("1,1");
+            board.PlaceMarkerAt("1,1", PlayerMarker.X);
 
             char[,] expected = {
                 {'X','.','.'},
@@ -45,11 +45,11 @@ namespace tictactoe_kata_test
         {
             Board board = new Board();
 
-            board.PlaceMarkerAt("2,2");
+            board.PlaceMarkerAt("2,2", PlayerMarker.O);
 
             char[,] expected = {
                 {'.','.','.'},
-                {'.','X','.'},
+                {'.','O','.'},
                 {'.','.','.'}};
                 
             char[,] actual = board.SpaceContents;
@@ -62,7 +62,7 @@ namespace tictactoe_kata_test
         {
             Board board = new Board();
 
-            board.PlaceMarkerAt("3,3");
+            board.PlaceMarkerAt("3,3",PlayerMarker.X);
 
             char[,] expected = {
                 {'.','.','.'},
@@ -95,7 +95,7 @@ namespace tictactoe_kata_test
         public void Board_ToString_HasMarker_ReturnsBoardWithMarkerAsString_MarkerAtCorrectPosition() //cant pass 2d =arrays as inline data!
         {
             Board board = new Board();
-            board.PlaceMarkerAt("1,3");
+            board.PlaceMarkerAt("1,3", PlayerMarker.X);
 
             board.ToString();
 
@@ -107,6 +107,23 @@ namespace tictactoe_kata_test
             string actual = board.ToString();
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Board_SpaceIsTaken_ReturnsTrueIfSpaceIsAlreadyTaken() //cant pass 2d =arrays as inline data!
+        {
+            Board board = new Board();
+            board.PlaceMarkerAt("1,3", PlayerMarker.O);
+
+            Assert.True(board.SpaceIsTakenAt("1,3"));
+        }
+
+        [Fact]
+        public void Board_SpaceIsTaken_ReturnsFalseIfSpaceIsEmpty() //cant pass 2d =arrays as inline data!
+        {
+            Board board = new Board();
+
+            Assert.False(board.SpaceIsTakenAt("1,3"));
         }
     }
 }

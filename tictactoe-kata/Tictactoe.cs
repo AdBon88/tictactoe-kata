@@ -5,9 +5,10 @@ namespace tictactoe_kata
     public class Tictactoe
     {
         public Board Board {get;} = new Board();
-        public Player Player1 {get;} = new Player("Player 1", PlayerMarker.X, true);
-        public Player Player2 {get;} = new Player("Player 2", PlayerMarker.O, false);
+        public Player Player1 {get;} = new Player("Player 1", PlayerMarker.X);
+        public Player Player2 {get;} = new Player("Player 2", PlayerMarker.O);
 
+        public Player activePlayer {get;set;}
 
         public string WelcomeMessageOutput()
         {
@@ -19,14 +20,13 @@ namespace tictactoe_kata
             return Board.ToString();
         }
 
-        // public void SwitchActivePlayer()
-        // {
-        //     if(!Player1.IsActive && !Player2.IsActive)
-        //         Player1.IsActive = true;
-        //     else 
-        // }
+        public void StartGame()
+        {
+            Player1.IsActive = true;
+            
+        }
 
-        //TODO ASK ABOUT THIS
+
         public string PromptUserForInput()
         {
             string playerName = "";
@@ -46,23 +46,57 @@ namespace tictactoe_kata
 
         public InputAction ProcessUserInput(string userInput)
         {
-            if(userInput == "q")
-                return InputAction.QuitGame;
-            else if(Regex.IsMatch(userInput, @"^[1-3],[1-3]$"))
+            switch(userInput)
             {
-                Board.PlaceMarkerAt(userInput);
-                return InputAction.ValidMove;
+                case "q":
+                    return InputAction.QuitGame;
+                case string invalidInput when !Regex.IsMatch(userInput, @"^[1-3],[1-3]$"):
+                    return InputAction.InvalidMove;
+                case string validCoords when Board.SpaceIsTakenAt(userInput):
+                    return InputAction.UnacceptableMove;
+                default:
+                {
+                    if(Player1.IsActive)
+                        PlayTurnFor(Player1, userInput);
+                    else
+                        PlayTurnFor(Player2, userInput);
+                    SwitchActivePlayer();
+                    return InputAction.ValidMove;
+                }     
             }
-            else
-                return InputAction.InvalidMove;
         }
 
+        private void PlayTurnFor(Player activePlayer, string playerInput){
+            Board.PlaceMarkerAt(playerInput, activePlayer.Marker);
+        }
+        public void SwitchActivePlayer()
+        {
+            if(Player1.IsActive)
+            {
+                Player1.IsActive = false;
+                Player2.IsActive = true;
+            } else if(Player2.IsActive)
+            {
+                Player2.IsActive =  false;
+                Player1.IsActive = true;
+            }
+        }
         public string OutputOf(InputAction nextAction)
         {
-            if (nextAction == InputAction.ValidMove)
-                return MoveAcceptedOutput() + CurrentBoardOutput();
-            else
+            if (nextAction == InputAction.InvalidMove)
                 return InvalidMoveOutput();
+            else if (nextAction == InputAction.UnacceptableMove)
+                return UnacceptableMoveOutput();
+            else
+                return MoveAcceptedOutput() + CurrentBoardOutput();
+        }
+        private string InvalidMoveOutput()
+        {
+            return "\nInvalid move!";
+        }
+        private string UnacceptableMoveOutput()
+        {
+            return "\nOh no, a piece is already at this place! Try again...";
         }
 
         private string MoveAcceptedOutput()
@@ -70,10 +104,7 @@ namespace tictactoe_kata
             return "\nMove accepted, here's the current board:\n";
         }
 
-        private string InvalidMoveOutput()
-        {
-            return "\nInvalid move!";
-        }
+
 
     }
 }
