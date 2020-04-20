@@ -4,8 +4,8 @@ namespace tictactoe_kata
     {
         NoMove,
         QuitGame,
-        ValidMove,
         InvalidMove,
-        UnacceptableMove
+        UnacceptableMove,
+        ValidMove
     }
 }

@@ -3,9 +3,9 @@ namespace tictactoe_kata
 {
     public class Board
     {
-        const int NumberOfRows = 3;
-        const int NumberOfCols = 3;
-        public char[,] SpaceContents {get;} = new char[NumberOfRows, NumberOfCols];
+        public const int NumberOfRows = 3;
+        public const int NumberOfCols = 3;
+        public char[,] SpaceContents {get;} = new char[NumberOfRows, NumberOfCols]; //should this be private but have an accessor that takes coords as strings but returns the char at those coords?- discuss clean code
 
         public Board(){
             for (int i = 0; i < NumberOfRows; i++)
@@ -14,20 +14,12 @@ namespace tictactoe_kata
         }
 
         public void PlaceMarkerAt(string coordsInput, PlayerMarker activePlayerMarker)
-        {
-            // string[] coordsArray = coordsInput.Split(',');
-            // int row = Int32.Parse(coordsArray[0]) - 1;
-            // int col = Int32.Parse(coordsArray[1]) - 1;
-            
+        {  
             SpaceContents[Coords.ParseRow(coordsInput), Coords.ParseCol(coordsInput)] = (char)activePlayerMarker; 
         }
 
         public bool SpaceIsTakenAt(string coordsInput)
         {
-            // string[] coordsArray = coordsInput.Split(',');
-            // int row = Int32.Parse(coordsArray[0]) - 1;
-            // int col = Int32.Parse(coordsArray[1]) - 1;   
-
             if(SpaceContents[Coords.ParseRow(coordsInput),Coords.ParseCol(coordsInput)] != (char)PlayerMarker.None)      
                 return true;
             else

@@ -3,7 +3,7 @@ namespace tictactoe_kata
 {
     public class GameLoop
     {
-        public bool Run() //is this testable at all?
+        public bool Run()
         {
             Tictactoe tictactoe = new Tictactoe();
             tictactoe.StartGame();
@@ -16,9 +16,10 @@ namespace tictactoe_kata
                 Console.WriteLine(tictactoe.PromptUserForInput());
                 userInput = Console.ReadLine().ToLower();
                 nextAction = tictactoe.ProcessUserInput(userInput);
-                Console.WriteLine(tictactoe.OutputOf(nextAction));
-
-            } while( nextAction != InputAction.QuitGame ); 
+                Console.WriteLine(tictactoe.OutcomeOf(nextAction));
+                if(nextAction == InputAction.ValidMove)
+                    tictactoe.SwitchActivePlayer(); //discuss
+            } while( nextAction != InputAction.QuitGame && !tictactoe.PlayerHasWon() && !tictactoe.GameIsTie()); 
 
             return true;
         }        
